@@ -1,0 +1,26 @@
+name: Nimble build
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  nimble-build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/terrapkg/builder:f40
+      options: --cap-add=SYS_ADMIN --privileged
+
+    steps:
+      - name: Set workspace as safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install nim
+        run: dnf5 in -y nim nim-tools
+
+      - name: Nimble build
+        run: nimble build -y
