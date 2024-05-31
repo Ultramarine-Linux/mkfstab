@@ -10,6 +10,6 @@ bin           = @["mkfstab"]
 
 # Dependencies
 
-requires "nim >= 2.1.1"
+requires "nim >= 2.0.0"
 requires "cligen"
 requires "sweet"
