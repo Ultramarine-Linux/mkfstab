@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.1.2"
 author        = "madomado"
 description   = "An alternative to genfstab: generate output suitable for addition to /etc/fstab"
 license       = "MIT"
