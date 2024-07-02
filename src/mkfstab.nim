@@ -41,10 +41,12 @@ proc mkfstab(root: seq[string], output = "", includepseudo = false, verbosity = 
   # turn into UUID=
   for (_, uuid) in walkDir(Path("/dev/disk/by-uuid"), checkDir=true):
     var dev = absolutePath(expandSymlink(uuid), "/dev/disk/by-uuid".Path)
-    debug &"Found {uuid.string:<54} → {dev.string}"
+    var uuid = uuid.string
+    uuid.removePrefix "/dev/disk/by-uuid/"
+    debug &"Found {uuid:<36} → {dev.string}"
     for i, mp in enumerate(mps):
       if mp.device.Path == dev:
-        mps[i].device = fmt"UUID={uuid.string}"
+        mps[i].device = fmt"UUID={uuid}"
   # check lengths for pretty fstab
   for mp in mps:
     lengths = [
